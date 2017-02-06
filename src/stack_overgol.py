@@ -479,7 +479,7 @@ class StackOvergol:
     def listar(self, bot, update, user, *args, **kwargs):
         with_time = False
 
-        if len(kwargs["args"][0]):
+        if len(kwargs["args"]):
             with_time = kwargs["args"][0].lower() == "true"
 
         return update.message.reply_text(self._get_lista_presenca(update, with_time))
