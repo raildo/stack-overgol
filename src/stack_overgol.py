@@ -419,7 +419,7 @@ class StackOvergol:
                 "id": user["id"],
                 "first_name": user["first_name"],
                 "last_name": user["last_name"],
-                "timestmap": int(update.message.date.strftime("%s")) - 3 * 60 * 60
+                "timestamp": int(update.message.date.strftime("%s")) - 3 * 60 * 60
             })
 
         return update.message.reply_text("{} {} adicionado à lista de presença.".format(user["first_name"], user["last_name"]))
