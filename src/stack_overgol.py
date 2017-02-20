@@ -244,13 +244,15 @@ class StackOvergol:
         self.getGroup(update).child("data_racha").set(" ")
         self.getGroup(update).child("registros_abertos").set(False)
 
-        if self.abrir_job_instance:
-            self.abrir_job_instance.schedule_removal()
-            self.abrir_job_instance = None
+        chat_id = update.message.chat_id
 
-        if self.fechar_job_instance:
-            self.fechar_job_instance.schedule_removal()
-            self.fechar_job_instance = None
+        if chat_id in self.abrir_job_instances:
+            self.abrir_job_instances[chat_id].schedule_removal()
+            self.abrir_job_instances.pop(chat_id, None)
+
+        if chat_id in self.fechar_job_instances:
+            self.fechar_job_instances[chat_id].schedule_removal()
+            self.fechar_job_instances.pop(chat_id, None)
 
         return update.message.reply_text("Registros resetados")
 
@@ -417,7 +419,7 @@ class StackOvergol:
                 "id": user["id"],
                 "first_name": user["first_name"],
                 "last_name": user["last_name"],
-                "timestamp": int(time.time()) - 3 * 60 * 60
+                "timestmap": int(update.message.date.strftime("%s")) - 3 * 60 * 60
             })
 
         return update.message.reply_text("{} {} adicionado à lista de presença.".format(user["first_name"], user["last_name"]))
